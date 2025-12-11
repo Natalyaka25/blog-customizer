@@ -31,7 +31,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		useState<ArticleStateType>(defaultArticleState);
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const formRef = useRef<HTMLDivElement>(null);
+	const formRef = useRef<HTMLElement>(null);
 
 	// useOutsideClickClose({
 	// 	isOpen,
