@@ -6,6 +6,7 @@ import {
 import { ArticleParamsForm } from './components/article-params-form';
 import { Article } from './components/article';
 import styles from './styles/index.module.scss';
+import './styles/index.scss';
 
 export const App = () => {
 	const [appliedState, setAppliedState] =

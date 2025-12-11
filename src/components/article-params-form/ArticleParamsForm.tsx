@@ -17,7 +17,8 @@ import {
 } from 'src/constants/articleProps';
 import { Select } from 'src/ui/select';
 import { Separator } from 'src/ui/separator';
-import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
+//import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
+import { useClose } from 'src/ui/select/hooks/useClose';
 
 interface ArticleParamsFormProps {
 	setAppliedState: (state: ArticleStateType) => void;
@@ -29,14 +30,24 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	const [tempState, setTempState] =
 		useState<ArticleStateType>(defaultArticleState);
 
-	const [isOpen, setIsOpen] = useState(false);
-	const rootRef = useRef<HTMLDivElement>(null);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const formRef = useRef<HTMLDivElement>(null);
 
-	useOutsideClickClose({
-		isOpen,
-		rootRef,
-		onClose: () => setIsOpen(false),
-		onChange: setIsOpen,
+	// useOutsideClickClose({
+	// 	isOpen,
+	// 	rootRef,
+	// 	onClose: () => setIsOpen(false),
+	// 	onChange: setIsOpen,
+	// });
+
+	const closeMenu = () => {
+		setIsMenuOpen(false);
+	};
+
+	useClose({
+		isOpen: isMenuOpen,
+		onClose: closeMenu,
+		rootRef: formRef,
 	});
 
 	const handleSettingChange =
@@ -45,7 +56,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		};
 
 	const toggleForm = () => {
-		setIsOpen(!isOpen);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -61,12 +72,12 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={toggleForm} />
+			<ArrowButton isOpen={isMenuOpen} onClick={toggleForm} />
 			<aside
 				className={clsx(styles.container, {
-					[styles.container_open]: isOpen,
+					[styles.container_open]: isMenuOpen,
 				})}
-				ref={rootRef}>
+				ref={formRef}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmit}
